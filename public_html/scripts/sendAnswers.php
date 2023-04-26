@@ -10,7 +10,7 @@ $profession_id = $_POST['profession'];
 
 $sql = "INSERT INTO answers (expert_id, poll_id, profession_id) VALUES ('" . $expert_id .
     "', '" . $answer[0] . "', '" . $profession_id . "')";
-for ($i = 0; $i<count($answer); $i++){
+for ($i = 1; $i<count($answer); $i++){
     $sql .= ", ('" . $expert_id . "', '" . $answer[$i] . "', '" . $profession_id . "')";
 }
 

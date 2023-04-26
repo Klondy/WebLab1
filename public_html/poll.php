@@ -11,20 +11,22 @@
     </script>-->
 </head>
 <body>
+
     <header></header>
     <main id="main">
         <h1>Какие ПВК важны для программиста?</h1>
-        <!--<label>
+        <form method="post" action="scripts/sendAnswers.php">
+        <label>
             <p>Введите код эксперта для прохождения опроса:
-            <input id="codeInput" type="text">
+            <input name="expert_id" type="number">
             </p>
-            <button onclick="redirect()">OK</button>
-        </label>-->
+        </label>
         <p>Выберите профессию:</p>
         <form method="get" action="">
             <label>
                 <select name="profession"><?php require (__DIR__ . '/database.php'); displayProfessions(); ?></select>
             </label>
+            <button type="button" onclick="window.location.href='descriptions.php'">Посмотреть описание</button>
             <br>
             <label for="countPVKInput" id="countPVK">
                 <p>Сколько ПВК вы желаете выбрать? (от 5 до 10)
@@ -35,11 +37,11 @@
             <div id="poll" hidden>
                 <p></p>
                 <label>
-                    <select name="answer"><?php displayOptions();?></select>
-                    <input type="number" min="5" max="10" onkeyup="checkNumber(this);" value="5">
+                    <select name="answer[]"><?php displayOptions();?></select>
+                    <!--<input type="number" min="5" max="10" onkeyup="checkNumber(this);" value="5">-->
                     <br>
                 </label>
-                <button type="button" onclick="sendAnswers();">Отправить результат</button>
+                <button type="submit">Отправить результат</button>
             </div>
 
         </form>
