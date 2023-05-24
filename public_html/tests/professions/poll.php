@@ -1,3 +1,7 @@
+<?php session_start();
+if(isset($_GET['code'])){
+    $_SESSION['expert_code'] = $_GET['code'];
+}?>
 <!DOCTYPE html>
 <head>
     <title>Title</title>
@@ -6,14 +10,14 @@
     <script src="js/poll.js"></script>
 
     <script src="js/expertCodes.js"></script>
-<!--    <script>-->
-<!--        (async () => {-->
-<!--            let url = new URL(window.location.href);-->
-<!--            if(!await checkCode(Number(url.searchParams.get('code')))){-->
-<!--                window.location.href = 'results.php';-->
-<!--            }-->
-<!--        })()-->
-<!--    </script>-->
+    <script>
+            (async () => {
+                let url = new URL(window.location.href);
+                if(!await checkCode(Number(url.searchParams.get('code')))){
+                    window.location.href = 'results.php';
+                }
+            })()
+    </script>
 </head>
 <body>
 
@@ -22,11 +26,6 @@
     <main id="main">
         <h1>Какие ПВК важны для программиста?</h1>
         <form id="poll-form" method="post" action="scripts/sendAnswers.php">
-<!--        <label>-->
-<!--            <p>Введите код эксперта для прохождения опроса:-->
-<!--            <input name="expert_id" type="number">-->
-<!--            </p>-->
-<!--        </label>-->
         <p>Выберите профессию:</p>
         <form method="get" action="">
             <label>
@@ -34,20 +33,14 @@
             </label>
             <button type="button" onclick="window.location.href='descriptions.php'">Посмотреть описание</button>
             <br>
-<!--            <label for="countPVKInput" id="countPVK">-->
-<!--                <p>Сколько ПВК вы желаете выбрать? (от 5 до 10)-->
-<!--                <input id="countPVKInput" type="number" min="5" max="10" onkeyup="checkNumber(this);" value="5">-->
-<!--                </p>-->
-<!--                <button id="continueButton" type="button" onclick="displayOptions(parseInt(document.getElementById('countPVKInput').value))">Подтвердить</button>-->
-<!--            </label>-->
             <div id="poll" hidden>
                 <p></p>
                 <label>
-                    <select name="answer" class="options" style="width: 250px">
+                    <select name="answer[]" class="options" style="width: 250px">
                         <option selected value="0">--Choose--</option>
                         <?php displayOptions();?>
                     </select>
-                    <input type="range" min="1" max="10" value="1" oninput="displayValue(this)"><span>1</span>
+                    <input name="points[]" type="range" min="1" max="10" value="1" oninput="displayValue(this)"><span>1</span>
                     <br>
                 </label>
                 <button type="submit">Отправить результат</button>
@@ -68,5 +61,8 @@
         }
     </script>
     <script src="js/sendAnswers.js"></script>
+<?php
+$_SESSION['expert_id'] = getExpertId($_SESSION['expert_code']);
+?>
     <!--<div class="bottom"></div>-->
 </body>

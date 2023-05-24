@@ -1,26 +1,44 @@
 <?php
-$database = parse_ini_file(__DIR__ . '/../database.ini');
-$connection = new mysqli($database['ip'], $database['username'], $database['password'], $database['database'], 3306);
+session_start();
+function sendAnswers($post): bool
+{
+    $database = parse_ini_file(__DIR__ . '/../../../database.ini');
+    $connection = new mysqli($database['ip'], $database['username'], $database['password'], $database['database'], 3306);
 
 #$sql = "INSERT INTO answers (expert_id, poll_id, profession_id) VALUES ('" . $_POST['expert_id'] .
 #"', '" .$_POST[''];
-$expert_id = $_POST['expert_id'];
-$answer = $_POST['answer'];
-$profession_id = $_POST['profession'];
-
-$sql = "INSERT INTO answers (expert_id, poll_id, profession_id) VALUES ('" . $expert_id .
-    "', '" . $answer[0] . "', '" . $profession_id . "')";
-for ($i = 1; $i<count($answer); $i++){
-    if($answer[$i] == 0){
-        continue;
+    $expert_id = $post['expert_id'];
+    $answer = $post['answer'];
+    $profession_id = $post['profession'];
+    $points = $post['points'];
+    echo 123445;
+    $sql = "INSERT INTO answers (expert_id, poll_id, profession_id, points) VALUES ('" . $expert_id .
+        "', '" . $answer[0] . "', '" . $profession_id . "', '" . $points[0] . "')";
+    for ($i = 1; $i<count($answer); $i++){
+        if($answer[$i] == 0){
+            echo 123;
+            continue;
+        }
+        echo 1234;
+        $sql .= ", ('" . $expert_id . "', '" . $answer[$i] . "', '" . $profession_id  . "', '" . $points[$i] . "')";
     }
-    $sql .= ", ('" . $expert_id . "', '" . $answer[$i] . "', '" . $profession_id . "')";
-}
-try {
-    $connection->query($sql);
+    try {
+        $connection->query($sql);
 
-} catch (Exception $ex){
-    echo json_encode(false);
+    } catch (Exception $ex){
+        echo $ex;
+        return false;
+    }
+    $connection->close();
+    return true;
 }
-$connection->close();
-echo json_encode(true);
+
+$post = array_merge($_SESSION, $_POST);
+print_r($post);
+if(sendAnswers($post)){
+    $_SESSION['sent'] = true;
+} else {
+    $_SESSION['sent'] = false;
+}
+header("Location: /site/public_html/tests/professions/results.php");
+//header("Location: results.php");

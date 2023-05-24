@@ -1,9 +1,9 @@
-function redirect(code){
-    if(checkCode(code)){
-        window.location.href = ''
-    }
-
-}
+// function redirect(code){
+//     if(checkCode(code)){
+//         window.location.href = ''
+//     }
+//
+// }
 
 async function checkCode(code) {
     if (!isNaN(code)) {

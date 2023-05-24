@@ -22,7 +22,12 @@ function getAnswersForProfession($profession_id){
         while ($row = $result->fetch_assoc()) {
             //echo print_r($row);
             $temp = $connection->query("SELECT name FROM poll_options where id={$row['poll_id']}")->fetch_assoc();
-            echo "<p>{$temp['name']} встречается {$row['COUNT(profession_id)']} раз</p>";
+            $pointsCon = $connection->query("SELECT points FROM answers where poll_id={$row['poll_id']}");
+            $point = 0;
+            while($row1 = $pointsCon->fetch_assoc()){
+                $point += $row1['points'];
+            }
+            echo "<p>{$temp['name']} встречается {$row['COUNT(profession_id)']} раз и набрало {$point} баллов.</p>";
         }
     }
 //    $sql = "SELECT * FROM answers WHERE profession_id=" . $profession_id;

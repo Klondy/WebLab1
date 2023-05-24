@@ -59,3 +59,26 @@ function displayOptions(){
     }
     $connection->close();
 }
+
+function getExpertId($expert_code){
+    global $database;
+
+    $connection = new mysqli($database['ip'], $database['username'], $database['password'], $database['database'], 3306);
+
+
+    if ($connection->connect_error) {
+        echo("Error");
+        die("Connection failed: " . $connection->connect_error);
+    } else {
+        echo("Good");
+    }
+
+    $sql = "SELECT expert_id FROM experts WHERE expert_code=" . $expert_code;
+    $result = $connection->query($sql);
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        return $row['expert_id'];
+    }
+    $connection->close();
+}
