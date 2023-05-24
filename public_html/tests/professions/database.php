@@ -1,5 +1,5 @@
 <?php
-$database = parse_ini_file(__DIR__.'/database.ini');
+$database = parse_ini_file(__DIR__ . '/../../database.ini');
 
 function displayProfessions()
 {

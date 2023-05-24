@@ -1,5 +1,5 @@
 <?php
-$database = parse_ini_file(__DIR__.'/../database.ini');
+$database = parse_ini_file(__DIR__ . '/../../../database.ini');
 $connection = new mysqli($database['ip'], $database['username'], $database['password'], $database['database'], 3306);
 
 function getAnswersForProfession($profession_id){

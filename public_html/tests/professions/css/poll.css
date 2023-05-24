@@ -4,7 +4,6 @@ header {
     top: 0;
     left: 0;
     right: 0;
-    width: fill;
     height: 60px;
     background-color: darkslategrey;
 }
@@ -32,6 +31,10 @@ input[type=number]::-webkit-outer-spin-button {
 
 input[type=number]{
     width: 15px;
+}
+
+.options {
+    width: 10px;
 }
 
 /*

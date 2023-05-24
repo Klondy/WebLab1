@@ -9,15 +9,15 @@
     <h1>Test</h1>
 </header>
 <main id="main">
-<div style="">
+    <div style="">
 
-    <?php
-        require (__DIR__.'/scripts/getAnswers.php');
+        <?php
+        require(__DIR__ . '/scripts/getAnswers.php');
         for ($i = 1; $i<=3;$i++){
-            getAnswersForProfession($i);
+            getDescriptions($i);
         };
-    ?>
-</div>
+        ?>
+    </div>
 </main>
 <!--<div class="bottom"></div>-->
 </body>
